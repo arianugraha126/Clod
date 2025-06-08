@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebGIS Cuaca Interaktif</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+</head>
+<body>
+
+    <header id="main-header">
+        <div class="container">
+            <div id="logo">
+                <h2><i class="fas fa-cloud-sun-rain"></i> Clod </h2>
+            </div>
+            <nav id="main-nav">
+                <ul>
+                    <li><a href="#hero">Beranda</a></li>
+                    <li><a href="#interactive-section">Dashboard</a></li>
+                    <li><a href="#author-section">Tentang Saya</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero">
+            <video playsinline autoplay muted loop id="hero-video">
+                <source src="videos/13839831_3840_2160_24fps (1).mp4" type="video/mp4">
+                Browser Anda tidak mendukung tag video.
+            </video>
+            <div class="hero-content">
+                <div class="container">
+                    <h1>Analisis Cuaca Real-time</h1>
+                    <p class="hero-subtitle">Visualisasikan data cuaca akurat Se Pulau Jawa</p>
+                    <a href="#interactive-section" class="btn btn-primary">Lihat Dashboard <i class="fas fa-arrow-down"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <section id="interactive-section" class="section-padding">
+            <div class="container full-width-container">
+                <div class="section-header">
+                    <h2>Peta & Analisis Cuaca</h2>
+                    <p class="section-intro">Pilih lokasi di peta atau gunakan pencarian untuk melihat data cuaca dan prakiraan secara real-time.</p>
+                </div>
+                <div class="compact-layout-container">
+                    <div class="map-container">
+                        <div id="map"></div>
+                        <div id="custom-map-controls">
+                            <div class="control-panel layers-panel">
+                                <button class="layer-btn" data-layer="temperature" title="Lapisan Suhu"><i class="fas fa-temperature-high"></i></button>
+                                <button class="layer-btn" data-layer="precipitation" title="Lapisan Curah Hujan"><i class="fas fa-cloud-showers-heavy"></i></button>
+                                <button class="layer-btn" data-layer="clouds" title="Lapisan Awan"><i class="fas fa-cloud"></i></button>
+                                <button class="layer-btn active" data-layer="cities" title="Kota & Info Cuaca"><i class="fas fa-city"></i></button>
+                            </div>
+                            <div id="custom-legend-container"></div>
+                            <div class="control-panel basemap-panel">
+                                <button class="basemap-btn active" data-basemap="light" title="Mode Terang"><i class="fas fa-sun"></i></button>
+                                <button class="basemap-btn" data-basemap="dark" title="Mode Gelap"><i class="fas fa-moon"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="data-panel-container">
+                        <div class="data-panel-inner">
+                            <div id="weather-search-controls">
+                                <div class="autocomplete-container">
+                                    <input type="text" id="input-kota" placeholder="Masukkan nama kota...">
+                                    <div id="autocomplete-results" class="autocomplete-items"></div>
+                                </div>
+                                <button id="tombol-cari" class="btn" title="Cari Kota"><i class="fas fa-search"></i></button>
+                                <button id="tombol-lokasi-saya" class="btn" title="Gunakan Lokasi Saya"><i class="fas fa-map-marker-alt"></i></button>
+                            </div>
+                            <div class="weather-info-wrapper">
+                                <div id="current-weather-content">
+                                    <p class="placeholder-text">Pilih lokasi untuk menampilkan data...</p>
+                                </div>
+                                <div id="aqi-card-wrapper" class="hidden">
+                                    <h3 class="card-title-header">Kualitas Udara</h3>
+                                    <div class="highlight-card aqi-card">
+                                        <div id="aqi-content"></div>
+                                    </div>
+                                </div>
+                                <div id="forecast-wrapper">
+                                    <h3 class="forecast-title">Prakiraan 5 Hari</h3>
+                                    <div id="forecast-content"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="author-section" class="section-padding">
+             <div class="container">
+                 <div class="section-header">
+                     <h2>Tentang Pembuat</h2>
+                 </div>
+                 <div class="author-card">
+                     <div class="author-photo">
+                         <img src="videos/P1181216.JPG" alt="Foto Penulis">
+                     </div>
+                     <div class="author-bio">
+                         <h3>Aria Nugraha Pratama</h3>
+                         <h4>Mahasiswa Sains Informasi Geografi Universitas Pendidikan Indonesia</h4>
+                         <p>Seorang pengembang web dengan minat besar pada visualisasi data geospasial dan analisis cuaca. Proyek ini dibuat sebagai portofolio untuk menunjukkan kemampuan dalam mengintegrasikan data real-time dengan antarmuka peta interaktif.</p>
+                         <div class="author-socials">
+                             <a href="#" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                             <a href="#" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                             <a href="https://www.instagram.com/_ariaanp/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+        </section>
+    </main>
+    
+    <footer id="main-footer">
+        <p>&copy; <span id="tahun"></span> WebGIS Cuaca Interaktif. Hak Cipta Dilindungi.</p>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+    
+    <script src="js/script.js"></script>
+    
+    <script>
+        document.getElementById('tahun').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
